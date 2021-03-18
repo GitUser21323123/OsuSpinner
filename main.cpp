@@ -42,12 +42,20 @@ void driver(std::mt19937 &gen)
 }
 
 #include <shape.h>
-void driver_fancy()
+#include <vector>
+#include <iostream>
+void driver_fancy(std::vector<std::vector<double>> const &coords)
 {
+    for (auto i : coords)
+    {
+        //input::moveMouse(i[0], i[1]); // Very slow...
 
+        std::cout << i.at(0) << " " << i.at(1) << "\n";
+
+        Sleep(1);
+    }
 }
 
-#include <iostream>
 int main(int, char**)
 {
     bool start = true;
@@ -55,14 +63,15 @@ int main(int, char**)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    driver_fancy();
+    std::vector<std::vector<double>> coords = shape::genHeart();
 
     while (start)
     {
         // spin 2 win
         if (toggle && (GetAsyncKeyState(VK_SHIFT) & 0x8000))
         {
-            driver(gen);
+            //driver(gen);
+            driver_fancy(coords);
         }
 
         // Kill switch
