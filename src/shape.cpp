@@ -16,7 +16,7 @@ namespace shape
 
         std::vector<std::vector<double>> coordinates;
 
-        for (double i = -3.0f; i < 3.0f; i += 0.15)
+        for (double i = -3.0f; i < 3.f; i += 0.15)
         {
             double x = 16.0f * std::pow(std::sin(i), 3);
             double y = 13.0f * std::cos(i) - 5.0f * std::cos(2.0f*i) - 2.0f * std::cos(3.0f*i) - std::cos(4.0f*i);
