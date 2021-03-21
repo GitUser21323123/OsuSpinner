@@ -2,6 +2,8 @@
 #include <windows.h>
 #include <random>
 
+
+// Simple diamond-shaped spinner. Creates a uniform integer rng value for delay and movement range.
 void driver(std::mt19937 &gen)
 {
     input::pressKey(0x53, true);
@@ -41,6 +43,8 @@ void driver(std::mt19937 &gen)
     input::pressKey(0x53, false);
 }
 
+
+// WIP
 #include <shape.h>
 #include <vector>
 #include <iostream>
@@ -58,31 +62,29 @@ void driver_fancy(std::vector<shape::Data> const &coords)
 
 void driver_fancyArray(shape::Data *coords)
 {
-    for (int i = 0; i < 40; ++i)
+    for (int i = 0; i < 21; ++i)
     {
-        //input::moveMouse(i[0], i[1]); // Very slow...
+        input::moveMouse(coords[i].dx, coords[i].dy);
 
-        std::cout << &coords[i].dx << " " << &coords[i].dy << "\n";
-
-        Sleep(1);
+        Sleep(5);
     }
 }
 
 int main(int, char**)
 {
-    bool start = true;
+    bool start = false;
     bool toggle = false;
     std::random_device rd;
     std::mt19937 gen(rd());
 
+    // Heart coordinates
     std::vector<shape::Data> coords = shape::genHeart();
     shape::Data coordinates[45];
-
     shape::genHeartArray(coordinates);
 
-    for (int i = 0; i < 40; ++i)
+    for (int i = 0; i < 22; ++i)
     {
-        std::cout << &coords[i].dx << " " << &coords[i].dy << "\n";
+        std::cout << coordinates[i].dx << " " << coordinates[i].dy << "\n";
     }
 
     while (start)
@@ -102,7 +104,7 @@ int main(int, char**)
         }
 
         // Toggle
-        if (GetKeyState(VK_HOME) & 0x80)
+        if (GetKeyState(VK_HOME) & 0x8000)
         {
             system("cls");
             if (toggle)

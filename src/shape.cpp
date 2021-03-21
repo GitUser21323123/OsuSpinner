@@ -47,7 +47,7 @@ namespace shape
         }
 
         int count = 0;
-        for (double i = -3.0f; i < 3.f; i += 0.15, count++)
+        for (double i = -3.0f; i < 3.f; i += 0.3, count++)
         {
             double x = 16.0f * std::pow(std::sin(i), 3);
             double y = 13.0f * std::cos(i) - 5.0f * std::cos(2.0f*i) - 2.0f * std::cos(3.0f*i) - std::cos(4.0f*i);
@@ -55,8 +55,8 @@ namespace shape
             double dx = 48.0f * std::pow(std::sin(i), 2) * std::cos(i);
             double dy = -13.0f * std::sin(i) + 10.0f * sin(2.0f*i) + 6.0f * std::sin(3.0f*i) + 4.0f * std::sin(4.0f*i);
 
-            coordinates[count].dx = 0;
-            coordinates[count].dy = 0;
+            coordinates[count].dx = -dx;
+            coordinates[count].dy = -dy;
         }
     }
     
