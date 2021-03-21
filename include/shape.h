@@ -18,8 +18,8 @@ namespace shape
 
     std::vector<Data> genHeart();
     void genHeartArray(Data *coordinates);
-    std::vector<std::vector<double>> genEllipse(double a, double b, double radius);
-    std::vector<std::vector<int>> genSimpleDiamond();
+    std::vector<Data> genEllipse(double a, double b, double radius);
+    std::vector<Data> genSimpleDiamond();
 }
 
 #endif // __SHAPE_H__

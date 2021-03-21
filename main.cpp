@@ -2,9 +2,8 @@
 #include <windows.h>
 #include <random>
 
-
 // Simple diamond-shaped spinner. Creates a uniform integer rng value for delay and movement range.
-void driver(std::mt19937 &gen)
+void spinSimpleDiamond(std::mt19937 &gen)
 {
     input::pressKey(0x53, true);
     std::uniform_int_distribution<> distribMove(8, 12); // Range of movement: [lower, upper]
@@ -43,36 +42,43 @@ void driver(std::mt19937 &gen)
     input::pressKey(0x53, false);
 }
 
-
-// WIP
+// WIP: It is working but doesn't max out spin rate (~370 rpm)
 #include <shape.h>
 #include <vector>
 #include <iostream>
-void driver_fancy(std::vector<shape::Data> const &coords)
+void spinHeart(std::vector<shape::Data> const &coords)
 {
     for (auto i : coords)
     {
-        //input::moveMouse(i[0], i[1]); // Very slow...
-
-        std::cout << i.dx << " " << i.dy << "\n";
+        input::moveMouse(i.dx, i.dy);
 
         Sleep(1);
     }
 }
 
-void driver_fancyArray(shape::Data *coords)
+void spinHeartArray(shape::Data *coords)
 {
-    for (int i = 0; i < 21; ++i)
+    for (int i = 0; i < 12; ++i)
     {
         input::moveMouse(coords[i].dx, coords[i].dy);
 
-        Sleep(5);
+        Sleep(1);
+    }
+}
+
+void spinCircle(std::vector<shape::Data> const &coords)
+{
+    for (auto i : coords)
+    {
+        input::moveMouse(i.dx, i.dy);
+
+        Sleep(1);
     }
 }
 
 int main(int, char**)
 {
-    bool start = false;
+    bool start = true;
     bool toggle = false;
     std::random_device rd;
     std::mt19937 gen(rd());
@@ -82,10 +88,8 @@ int main(int, char**)
     shape::Data coordinates[45];
     shape::genHeartArray(coordinates);
 
-    for (int i = 0; i < 22; ++i)
-    {
-        std::cout << coordinates[i].dx << " " << coordinates[i].dy << "\n";
-    }
+    // Circle coordinates
+    coords = shape::genEllipse(1, 1, 25);
 
     while (start)
     {
@@ -94,7 +98,8 @@ int main(int, char**)
         {
             //driver(gen);
             //driver_fancy(coords);
-            driver_fancyArray(coordinates);
+            //driver_fancyArray(coordinates);
+            spinCircle(coords);
         }
 
         // Kill switch
