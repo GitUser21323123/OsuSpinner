@@ -16,7 +16,8 @@ namespace shape
         Data(int a, int b) { dx = a; dy = b; }
     };
 
-    std::vector<std::vector<double>> genHeart();
+    std::vector<Data> genHeart();
+    void genHeartArray(Data *coordinates);
     std::vector<std::vector<double>> genEllipse(double a, double b, double radius);
     std::vector<std::vector<int>> genSimpleDiamond();
 }

@@ -44,13 +44,25 @@ void driver(std::mt19937 &gen)
 #include <shape.h>
 #include <vector>
 #include <iostream>
-void driver_fancy(std::vector<std::vector<double>> const &coords)
+void driver_fancy(std::vector<shape::Data> const &coords)
 {
     for (auto i : coords)
     {
         //input::moveMouse(i[0], i[1]); // Very slow...
 
-        std::cout << i.at(0) << " " << i.at(1) << "\n";
+        std::cout << i.dx << " " << i.dy << "\n";
+
+        Sleep(1);
+    }
+}
+
+void driver_fancyArray(shape::Data *coords)
+{
+    for (int i = 0; i < 40; ++i)
+    {
+        //input::moveMouse(i[0], i[1]); // Very slow...
+
+        std::cout << &coords[i].dx << " " << &coords[i].dy << "\n";
 
         Sleep(1);
     }
@@ -63,7 +75,15 @@ int main(int, char**)
     std::random_device rd;
     std::mt19937 gen(rd());
 
-    std::vector<std::vector<double>> coords = shape::genHeart();
+    std::vector<shape::Data> coords = shape::genHeart();
+    shape::Data coordinates[45];
+
+    shape::genHeartArray(coordinates);
+
+    for (int i = 0; i < 40; ++i)
+    {
+        std::cout << &coords[i].dx << " " << &coords[i].dy << "\n";
+    }
 
     while (start)
     {
@@ -71,7 +91,8 @@ int main(int, char**)
         if (toggle && (GetAsyncKeyState(VK_SHIFT) & 0x8000))
         {
             //driver(gen);
-            driver_fancy(coords);
+            //driver_fancy(coords);
+            driver_fancyArray(coordinates);
         }
 
         // Kill switch
